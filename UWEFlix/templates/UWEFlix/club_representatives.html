@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/films.css">
   </head>
   <body>
-    <h1>Clubs</h1>
+    <h1>Club Representatives</h1>
       {% for club_rep in club_reps %}
         <div class="film-box">
           <div>
@@ -15,6 +15,10 @@
             <li>Club Name: {{ club_rep.club.club_name }}</li>
             <li>Club Represenative Number: {{ club_rep.club_representative_number }}</li>
             <li>Birth Date: {{ club_rep.birth_date }}</li>
+
+            <br><br>
+            <a href="#" class="btn btn-secondary modify-film-btn">Modify Club Details</a>
+
           </div>
         </div>
           <br><br>

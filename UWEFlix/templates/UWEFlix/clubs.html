@@ -8,12 +8,23 @@
   </head>
   <body>
     <h1>Clubs</h1>
+
+    <a href="#" class="btn btn-primary add-film-btn">Add Club</a>
+    <br><br>
+
       {% for club in clubs %}
         <div class="film-box">
           <div>
             <h3>{{ club.club_name }}</h3>
             <li>Club ID: {{ club.id }}</li>
             <li>Club rep: {{ club.clubRep.first_name }}</li>
+
+            <br><br>
+            {% comment %} {% url 'modify_film' film.id %} {% endcomment %}
+            <a href="#" class="btn btn-secondary modify-film-btn">Modify Club Details</a>
+            {% comment %} {% url 'delete_film' film.id %} {% endcomment %}
+            <a href="#" class="btn btn-danger delete-film-btn" onclick="return confirm('Are you sure you want to delete this film?');">Delete Club</a>
+
           </div>
         </div>
           <br><br>

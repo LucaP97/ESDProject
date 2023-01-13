@@ -1,5 +1,4 @@
 {% extends 'UWEFlix/navbar.html' %}
-{% comment %} {% load static %} {% endcomment %}
 
 {% block content %}
 
@@ -9,6 +8,12 @@
   </head>
   <body>
     <h1>Films</h1>
+
+    {% comment %} {% url 'add_film' %} {% endcomment %}
+    <a href="#" class="btn btn-primary add-film-btn">Add Film</a>
+    <br><br>
+
+
       {% for film in films %}
         <div class="film-box">
           <div>
@@ -16,6 +21,12 @@
             <li>{{ film.duration }}</li>
             <li>{{ film.ageRating }}</li>
             <li>{{ film.shortTrailerDescription }}</li>
+            
+            <br><br>
+            {% comment %} {% url 'modify_film' film.id %} {% endcomment %}
+            <a href="#" class="btn btn-secondary modify-film-btn">Modify Film Details</a>
+            {% comment %} {% url 'delete_film' film.id %} {% endcomment %}
+            <a href="#" class="btn btn-danger delete-film-btn" onclick="return confirm('Are you sure you want to delete this film?');">Delete Film</a>
           </div>
         </div>
           <br><br>
