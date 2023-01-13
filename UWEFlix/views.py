@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.db.models import Sum, Count
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
@@ -39,11 +41,32 @@ def show_films(request):
     # # can chain these methods to create complex queries
     # query_set.filter().filter().order_by
 
-    return render(request, 'films.html', {'name': 'Luca', 'films': list(queryset)})
+    return render(request, 'UWEFlix/films.html', {'name': 'Luca', 'films': list(queryset)})
     # # query_set = Film.objects.all()
 
     # # for film in query_set:
     # #     print(film)
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('films')
+        else:
+            messages.success(request, ("there was an error logging in, try again"))
+            return redirect('login')
+    else:
+        return render(request, 'UWEFlix/login.html', {})
+
+def logout_user(request):
+    logout(request)
+    messages.success("you have been logged out")
+    return redirect('films')
+
+
 
 
 

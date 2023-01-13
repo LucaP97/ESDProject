@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('UWEFlix/', include('UWEFlix.urls'))
+    # path('UWEFlix/', include('django.contrib.auth.urls')),
+    path('', include('UWEFlix.urls')),
 ]

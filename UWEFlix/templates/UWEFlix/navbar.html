@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/navbar.css">
+    </head>
+    <body>
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'films' %}">Films</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            {% endif %}
+            
+        </ul>
+    </body>
+</html>
+
+{% block content %} {% endblock %}

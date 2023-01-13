@@ -3,5 +3,8 @@ from . import views
 
 # URLConf
 urlpatterns = [
-    path('films/', views.show_films, name='films')
+    # path('navbar/', name='navbar'),
+    path('films/', views.show_films, name='films'),
+    path('login_user/', views.login_user, name='login'),
+    path('logout_user/', views.login_user, name='logout')
 ]
