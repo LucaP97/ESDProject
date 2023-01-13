@@ -6,5 +6,6 @@ urlpatterns = [
     # path('navbar/', name='navbar'),
     path('films/', views.show_films, name='films'),
     path('login_user/', views.login_user, name='login'),
-    path('logout_user/', views.login_user, name='logout')
+    path('logout_user/', views.login_user, name='logout'),
+    path('register_user/', views.register_user, name='register_user'),
 ]
