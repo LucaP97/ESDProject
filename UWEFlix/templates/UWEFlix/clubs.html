@@ -1,5 +1,4 @@
 {% extends 'UWEFlix/navbar.html' %}
-{% comment %} {% load static %} {% endcomment %}
 
 {% block content %}
 
@@ -8,14 +7,13 @@
     <link rel="stylesheet" href="/static/films.css">
   </head>
   <body>
-    <h1>Films</h1>
-      {% for film in films %}
+    <h1>Clubs</h1>
+      {% for club in clubs %}
         <div class="film-box">
           <div>
-            <h3>{{ film.name }}</h3>
-            <li>{{ film.duration }}</li>
-            <li>{{ film.ageRating }}</li>
-            <li>{{ film.shortTrailerDescription }}</li>
+            <h3>{{ club.club_name }}</h3>
+            <li>Club ID: {{ club.id }}</li>
+            <li>Club rep: {{ club.clubRep.first_name }}</li>
           </div>
         </div>
           <br><br>

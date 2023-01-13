@@ -1,0 +1,28 @@
+{% extends 'UWEFlix/navbar.html' %}
+{% comment %} {% load static %} {% endcomment %}
+
+{% block content %}
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/films.css">
+  </head>
+  <body>
+    <h1>Showings</h1>
+      {% for showing in showings %}
+        <div class="film-box">
+          <div>
+            <h3>{{ showing.film.name }}</h3>
+            <li>age rating: {{ showing.film.ageRating }}</li>
+            <li>description: {{ showing.film.shortTrailerDescription }}</li>
+            <li>{{ showing.time }}</li>
+            <li>screen number: {{ showing.screen.screen_number }}</li>
+            <li>capacity: {{ showing.screen.capacity }}</li>
+            {% comment %} <li>{{ film.shortTrailerDescription }}</li> {% endcomment %}
+          </div>
+        </div>
+          <br><br>
+      {% endfor %}
+  </body>
+</html>
+{% endblock %}

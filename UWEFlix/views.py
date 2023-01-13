@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models import Sum, Count
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from .models import Film, Showing
+from .models import *
 
 # Create your views here.
 # request -> response
@@ -48,6 +48,34 @@ def show_films(request):
     # # for film in query_set:
     # #     print(film)
 
+def show_showings(request):
+    queryset = Showing.objects.all()
+
+    return render(request, 'UWEFlix/showings.html', {
+        'showings': list(queryset)
+    })
+
+def show_screens(request):
+    queryset = Screen.objects.all()
+
+    return render(request, 'UWEFlix/screens.html', {
+        'screens': list(queryset)
+    })
+
+def show_clubs(request):
+    queryset = Club.objects.all()
+
+    return render(request, 'UWEFlix/clubs.html', {
+        'clubs': list(queryset)
+    })
+
+def show_clubs_reps(request):
+    queryset = ClubRepresentative.objects.all()
+
+    return render(request, 'UWEFlix/club_representatives.html', {
+        'club_reps': list(queryset)
+    })
+
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -83,6 +111,8 @@ def register_user(request):
     return render(request, 'UWEFlix/register_user.html', {
         'form': form,
     })
+
+
 
 
 

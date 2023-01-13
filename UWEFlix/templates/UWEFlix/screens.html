@@ -8,14 +8,12 @@
     <link rel="stylesheet" href="/static/films.css">
   </head>
   <body>
-    <h1>Films</h1>
-      {% for film in films %}
+    <h1>Screens</h1>
+      {% for screen in screens %}
         <div class="film-box">
           <div>
-            <h3>{{ film.name }}</h3>
-            <li>{{ film.duration }}</li>
-            <li>{{ film.ageRating }}</li>
-            <li>{{ film.shortTrailerDescription }}</li>
+            <li>Screen: {{ screen.screen_number }}</li>
+            <li>Capacity: {{ screen.capacity }}</li>
           </div>
         </div>
           <br><br>

@@ -1,0 +1,24 @@
+{% extends 'UWEFlix/navbar.html' %}
+
+{% block content %}
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/films.css">
+  </head>
+  <body>
+    <h1>Clubs</h1>
+      {% for club_rep in club_reps %}
+        <div class="film-box">
+          <div>
+            <h3>{{ club_rep.first_name }} {{ club_rep.last_name }}</h3>
+            <li>Club Name: {{ club_rep.club.club_name }}</li>
+            <li>Club Represenative Number: {{ club_rep.club_representative_number }}</li>
+            <li>Birth Date: {{ club_rep.birth_date }}</li>
+          </div>
+        </div>
+          <br><br>
+      {% endfor %}
+  </body>
+</html>
+{% endblock %}

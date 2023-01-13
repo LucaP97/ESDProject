@@ -100,7 +100,7 @@ class ClubRepresentative(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField()
-    club_representatice_number = models.IntegerField(unique=True)
+    club_representative_number = models.IntegerField(unique=True)
     # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
