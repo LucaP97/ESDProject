@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/films.css">
+  </head>
+  <body>
+    {% if name %}
+    <h1>Hello {{ name }}</h1>
+    {% else %}
+    <h1>Hello World</h1>
+    {% endif %}
+      {% for film in films %}
+        <div class="film-box">
+          <div>
+            <h3>{{ film.name }}</h3>
+            <li>{{ film.duration }}</li>
+            <li>{{ film.ageRating }}</li>
+            <li>{{ film.shortTrailerDescription }}</li>
+          </div>
+        </div>
+          <br><br>
+      {% endfor %}
+  </body>
+</html>
