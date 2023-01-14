@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from django.forms.widgets import DateInput
 from .models import *
 
 
@@ -31,4 +32,23 @@ class ClubForm(forms.ModelForm):
     class Meta:
         model = Club
         fields = ['club_name']
+
+class ClubRepresentativeForm(forms.ModelForm):
+    class Meta:
+        model = ClubRepresentative
+        fields = ['first_name', 'last_name', 'birth_date']
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'datepicker'})
+        }
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['street_number', 'street', 'city', 'postcode']
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactDetails
+        fields = ['landline_number', 'mobile_number', 'email']
+
 

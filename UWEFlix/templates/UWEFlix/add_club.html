@@ -1,0 +1,47 @@
+{% extends 'UWEFlix/navbar.html' %}
+
+{% block content %}
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/films.css">
+  </head>
+  <body>
+    <center>
+        <h1>Register Club</h1>
+        <br>
+
+        {% if submitted %}
+          The Club Representative Password is: <br>
+          {{ password }}
+
+        {% else %}
+
+        <form action="" method=POST>
+        {% csrf_token %}
+
+        <h1>Club</h1>
+
+          {{ club_form.as_p }}
+
+          <h1>Club Address</h1>
+
+          {{ address_form.as_p }}
+
+          <h1>Club Contact Details</h1>
+
+          {{ contact_form.as_p }}
+
+          <h1>Club Representative Details</h1>
+
+          {{ club_representative_form.as_p }}
+
+          <input type="submit" value="Submit" class="btn btn-success">
+
+        </form>
+      {% endif %}
+    </center>
+
+  </body>
+</html>
+{% endblock %}

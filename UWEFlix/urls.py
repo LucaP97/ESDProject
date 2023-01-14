@@ -15,7 +15,8 @@ urlpatterns = [
     path('add_film/', views.add_film, name='add_film'),
     path('add_showing/', views.add_showing, name='add_showing'),
     path('add_screen/', views.add_screen, name='add_screen'),
-    path('update_film/<film_id>', views.update_film, name='update_film'),
-    path('update_screen/<screen_id>', views.update_screen, name='update_screen'),
-    path('update_club_representative/<clubrepresentative_id>', views.update_club_representative, name='update_club_representative'),
+    path('add_club/', views.register_club, name='add_club'),
+    path('update_film/<film_id>/', views.update_film, name='update_film'),
+    path('update_screen/<screen_id>/', views.update_screen, name='update_screen'),
+    path('update_club_representative/<clubrepresentative_id>/', views.update_club_representative, name='update_club_representative'),
 ]

@@ -1,5 +1,6 @@
 # from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+#from django.utils.crypto import get_random_string
 from django.db import models
 
 # # users
@@ -100,8 +101,8 @@ class ClubRepresentative(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birth_date = models.DateField()
-    club_representative_number = models.IntegerField(unique=True)
-    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    club_representative_number = models.IntegerField(unique=True, null=True)
+    password = models.CharField(max_length=20, null=True)
 
     def __str__(self) -> str:
         return self.first_name

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.utils.crypto import get_random_string
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -43,7 +44,7 @@ def show_films(request):
     # # can chain these methods to create complex queries
     # query_set.filter().filter().order_by
 
-    return render(request, 'UWEFlix/films.html', {'name': 'Luca', 'films': list(queryset)})
+    return render(request, 'UWEFlix/films.html', {'films': list(queryset)})
     # # query_set = Film.objects.all()
 
     # # for film in query_set:
@@ -92,6 +93,45 @@ def add_showing(request):
             submitted = True
 
     return render(request, 'UWEFlix/add_showing.html', {'form': form, 'submitted':submitted})
+
+
+def register_club(request):
+    submitted = False
+    password = ''
+    if request.method == "POST":
+        club_form = ClubForm(request.POST)
+        club_representative_form = ClubRepresentativeForm(request.POST)
+        address_form = AddressForm(request.POST)
+        contact_form = ContactForm(request.POST)
+        if club_form.is_valid() and club_representative_form.is_valid() and address_form.is_valid() and contact_form.is_valid():
+            club = club_form.save()
+            club_representative = club_representative_form.save(commit=False)
+            club_representative.club = club
+            #club_representative.save()
+            address_form.save()
+            contact_form.save()
+            #club_representative_id = club_representative_form.cleaned_data.get('id')
+            password = get_random_string(length=8)
+            #club_representative = ClubRepresentative(id=club_representative_id)
+            club_representative.password = password
+            club_representative.save()
+            return HttpResponseRedirect('?submitted=True')
+    else:
+        club_form = ClubForm
+        club_representative_form = ClubRepresentativeForm
+        address_form = AddressForm
+        contact_form = ContactForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'UWEFlix/add_club.html', {
+        'club_form': club_form,
+        'club_representative_form': club_representative_form,
+        'address_form': address_form,
+        'contact_form': contact_form,
+        'submitted': submitted,
+        'password': password
+    })
+
 
 def update_film(request, film_id):
     film = Film.objects.get(pk=film_id)

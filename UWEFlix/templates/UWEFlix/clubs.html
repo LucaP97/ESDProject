@@ -9,7 +9,7 @@
   <body>
     <h1>Clubs</h1>
 
-    <a href="#" class="btn btn-primary add-film-btn">Add Club</a>
+    <a href="{% url 'add_club' %}" class="btn btn-primary add-film-btn">Register a new club</a>
     <br><br>
 
       {% for club in clubs %}
