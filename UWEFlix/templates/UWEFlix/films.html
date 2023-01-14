@@ -10,7 +10,7 @@
     <h1>Films</h1>
 
     {% comment %} {% url 'add_film' %} {% endcomment %}
-    <a href="#" class="btn btn-primary add-film-btn">Add Film</a>
+    <a href="{% url 'add_film' %}" class="btn btn-primary add-film-btn">Add Film</a>
     <br><br>
 
 
@@ -19,8 +19,8 @@
           <div>
             <h3>{{ film.name }}</h3>
             <li>{{ film.duration }}</li>
-            <li>{{ film.ageRating }}</li>
-            <li>{{ film.shortTrailerDescription }}</li>
+            <li>{{ film.age_rating }}</li>
+            <li>{{ film.short_trailer_description }}</li>
             
             <br><br>
             {% comment %} {% url 'modify_film' film.id %} {% endcomment %}

@@ -1,0 +1,32 @@
+{% extends 'UWEFlix/navbar.html' %}
+
+{% block content %}
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/films.css">
+  </head>
+  <body>
+    <center>
+        <h1>Add Film</h1>
+        <br>
+
+        {% if submitted %}
+          Your Film was added successfully
+
+        {% else %}
+
+        <form action="" method=POST>
+        {% csrf_token %}
+
+          {{form.as_p }}
+
+          <input type="submit" value="Submit" class="btn btn-success">
+
+        </form>
+      {% endif %}
+    </center>
+
+  </body>
+</html>
+{% endblock %}

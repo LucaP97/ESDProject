@@ -10,15 +10,15 @@ from django.db import models
 
 class Film(models.Model):
     name = models.CharField(max_length=255)
-    ageRating = models.PositiveSmallIntegerField()
-    duration = models.DurationField()
-    shortTrailerDescription = models.CharField(max_length=255)
+    age_rating = models.PositiveSmallIntegerField()
+    duration = models.DecimalField(max_digits=5, decimal_places=2)
+    short_trailer_description = models.CharField(max_length=255)
 
     def __str__(self) -> str:
         return self.name
 
 class Screen(models.Model):
-    screen_number = models.PositiveSmallIntegerField()
+    screen_number = models.PositiveSmallIntegerField(unique=True)
     capacity = models.PositiveIntegerField()
 
     def __str__(self) -> str:

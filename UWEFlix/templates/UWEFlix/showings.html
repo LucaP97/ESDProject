@@ -10,15 +10,15 @@
   <body>
     <h1>Showings</h1>
 
-    <a href="#" class="btn btn-primary add-film-btn">Add Showing</a>
+    <a href="{% url 'add_showing' %}" class="btn btn-primary add-film-btn">Add Showing</a>
     <br><br>
 
       {% for showing in showings %}
         <div class="film-box">
           <div>
             <h3>{{ showing.film.name }}</h3>
-            <li>age rating: {{ showing.film.ageRating }}</li>
-            <li>description: {{ showing.film.shortTrailerDescription }}</li>
+            <li>age rating: {{ showing.film.age_rating }}</li>
+            <li>description: {{ showing.film.short_trailer_description }}</li>
             <li>{{ showing.time }}</li>
             <li>screen number: {{ showing.screen.screen_number }}</li>
             <li>capacity: {{ showing.screen.capacity }}</li>

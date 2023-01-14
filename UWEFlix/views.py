@@ -4,8 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.db.models import Sum, Count
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from .models import *
+from .forms import *
 
 # Create your views here.
 # request -> response
@@ -47,6 +48,53 @@ def show_films(request):
 
     # # for film in query_set:
     # #     print(film)
+
+
+def add_film(request):
+    submitted = False
+    if request.method == "POST":
+        form = FilmForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('add_film?submitted=True')
+    else:
+        form = FilmForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    # form = FilmForm
+    return render(request, 'UWEFlix/add_film.html', {'form': form, 'submitted':submitted})
+
+def add_screen(request):
+    submitted = False
+    if request.method == "POST":
+        form = ScreenForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('add_screen?submitted=True')
+    else:
+        form = ScreenForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    # form = FilmForm
+    return render(request, 'UWEFlix/add_screen.html', {'form': form, 'submitted':submitted})
+
+def add_showing(request):
+    submitted = False
+    if request.method == "POST":
+        form = ShowingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('add_showing?submitted=True')
+    else:
+        form = ShowingForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    # form = FilmForm
+    return render(request, 'UWEFlix/add_showing.html', {'form': form, 'submitted':submitted})
+
 
 def show_showings(request):
     queryset = Showing.objects.all()
