@@ -56,6 +56,7 @@ class Ticket(models.Model):
 
 class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    showing = models.OneToOneField(Showing, on_delete=models.DO_NOTHING)
 
 class BookingItem(models.Model):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)

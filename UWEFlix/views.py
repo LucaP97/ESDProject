@@ -190,6 +190,13 @@ def show_clubs_reps(request):
         'club_reps': list(queryset)
     })
 
+def delete_film(request, film_id):
+    film = Film.objects.get(pk=film_id)
+    film.delete()
+    return redirect('films')
+
+
+
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
