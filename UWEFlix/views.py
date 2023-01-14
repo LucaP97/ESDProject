@@ -77,7 +77,6 @@ def add_screen(request):
         if 'submitted' in request.GET:
             submitted = True
 
-    # form = FilmForm
     return render(request, 'UWEFlix/add_screen.html', {'form': form, 'submitted':submitted})
 
 def add_showing(request):
@@ -92,8 +91,35 @@ def add_showing(request):
         if 'submitted' in request.GET:
             submitted = True
 
-    # form = FilmForm
     return render(request, 'UWEFlix/add_showing.html', {'form': form, 'submitted':submitted})
+
+def update_film(request, film_id):
+    film = Film.objects.get(pk=film_id)
+    form = FilmForm(request.POST or None, instance=film)
+    if form.is_valid():
+        form.save()
+        return redirect('films')
+    return render(request, 'UWEFlix/update_film.html', {'film':film, 'form':form})
+
+def update_screen(request, screen_id):
+    screen = Screen.objects.get(pk=screen_id)
+    form = ScreenForm(request.POST or None, instance=screen)
+    if form.is_valid():
+        form.save()
+        return redirect('screens')
+    return render(request, 'UWEFlix/update_screen.html', {'screen':screen, 'form':form})
+
+# update club here
+
+
+def update_club_representative(request, clubrepresentative_id):
+    clubrepresentative = Screen.objects.get(pk=clubrepresentative_id)
+    form = ScreenForm(request.POST or None, instance=clubrepresentative)
+    if form.is_valid():
+        form.save()
+        return redirect('club_representatives')
+    return render(request, 'UWEFlix/update_club_representative.html', {'clubrepresentative':clubrepresentative, 'form':form})
+
 
 
 def show_showings(request):

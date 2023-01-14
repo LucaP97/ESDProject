@@ -17,7 +17,7 @@
             <li>Birth Date: {{ club_rep.birth_date }}</li>
 
             <br><br>
-            <a href="#" class="btn btn-secondary modify-film-btn">Modify Club Details</a>
+            <a href="{% url 'update_club_representative' club_rep.id %}" class="btn btn-secondary modify-film-btn">Modify Representative Details</a>
 
           </div>
         </div>

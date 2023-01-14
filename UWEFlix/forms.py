@@ -24,7 +24,7 @@ class ShowingForm(forms.ModelForm):
         fields = ['time', 'film', 'screen']
 
 
-
+# club representative form required
 
 
 class ClubForm(forms.ModelForm):
