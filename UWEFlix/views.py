@@ -57,7 +57,7 @@ def add_film(request):
         form = FilmForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('add_film?submitted=True')
+            return HttpResponseRedirect('?submitted=True')
     else:
         form = FilmForm
         if 'submitted' in request.GET:
@@ -72,7 +72,7 @@ def add_screen(request):
         form = ScreenForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('add_screen?submitted=True')
+            return HttpResponseRedirect('?submitted=True')
     else:
         form = ScreenForm
         if 'submitted' in request.GET:
@@ -86,7 +86,7 @@ def add_showing(request):
         form = ShowingForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('add_showing?submitted=True')
+            return HttpResponseRedirect('?submitted=True')
     else:
         form = ShowingForm
         if 'submitted' in request.GET:
@@ -103,17 +103,16 @@ def register_club(request):
         club_representative_form = ClubRepresentativeForm(request.POST)
         address_form = AddressForm(request.POST)
         contact_form = ContactForm(request.POST)
-        if club_form.is_valid() and club_representative_form.is_valid() and address_form.is_valid() and contact_form.is_valid():
+        if club_representative_form.is_valid() and club_form.is_valid() and address_form.is_valid() and contact_form.is_valid():
             club = club_form.save()
             club_representative = club_representative_form.save(commit=False)
             club_representative.club = club
-            #club_representative.save()
             address_form.save()
             contact_form.save()
-            #club_representative_id = club_representative_form.cleaned_data.get('id')
-            password = get_random_string(length=8)
-            #club_representative = ClubRepresentative(id=club_representative_id)
-            club_representative.password = password
+            club_representative.user = User.objects.create_user(username=club_representative_form.cleaned_data['first_name'],password=password)
+            club_representative.user.first_name = club_representative_form.cleaned_data['first_name']
+            club_representative.user.last_name = club_representative_form.cleaned_data['last_name']
+            club_representative.user.save()
             club_representative.save()
             return HttpResponseRedirect('?submitted=True')
     else:

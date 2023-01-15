@@ -34,6 +34,9 @@ class ClubForm(forms.ModelForm):
         fields = ['club_name']
 
 class ClubRepresentativeForm(forms.ModelForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    # user = forms.ModelChoiceField(queryset=User.objects.all())
     class Meta:
         model = ClubRepresentative
         fields = ['first_name', 'last_name', 'birth_date']

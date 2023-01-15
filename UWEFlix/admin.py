@@ -27,8 +27,8 @@ class ContactDetailsAdmin(admin.ModelAdmin):
 
 @admin.register(models.ClubRepresentative)
 class ClubRepresentativeAdmin(admin.ModelAdmin):
-    list_display = ['last_name', 'first_name', 'club']
-    list_editable = ['first_name']
+    list_display = [ 'club']
+    # list_editable = ['first_name']
     list_per_page = 10
 
 

@@ -1,4 +1,4 @@
-# from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.conf import settings
 #from django.utils.crypto import get_random_string
 from django.db import models
@@ -56,7 +56,7 @@ class Ticket(models.Model):
 
 class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    showing = models.OneToOneField(Showing, on_delete=models.DO_NOTHING)
+    showing = models.OneToOneField(Showing, on_delete=models.DO_NOTHING, null=True)
 
 class BookingItem(models.Model):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
@@ -99,17 +99,13 @@ class Club(models.Model):
 
 class ClubRepresentative(models.Model):
     club = models.OneToOneField(Club, on_delete=models.CASCADE, related_name='clubRep')
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
     birth_date = models.DateField()
     club_representative_number = models.IntegerField(unique=True, null=True)
-    password = models.CharField(max_length=20, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return self.first_name
+        return self.user.first_name + ' ' + self.user.last_name
 
-    class Meta:
-        ordering = ['first_name']
     
 
 class Account(models.Model):
