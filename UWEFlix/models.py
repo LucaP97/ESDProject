@@ -3,9 +3,6 @@ from django.conf import settings
 #from django.utils.crypto import get_random_string
 from django.db import models
 
-# # users
-# class User(AbstractUser):
-#     email = models.E
 
 # cinema side
 

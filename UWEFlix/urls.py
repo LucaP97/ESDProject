@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     # path('navbar/', name='navbar'),
     path('films/', views.show_films, name='films'),
+    path('index/', views.index, name='index'),
+    path('', views.index, name='nopath'),
     path('login_user/', views.login_user, name='login'),
     path('logout_user/', views.login_user, name='logout'),
     path('register_user/', views.register_user, name='register_user'),
@@ -20,4 +22,5 @@ urlpatterns = [
     path('update_screen/<screen_id>/', views.update_screen, name='update_screen'),
     path('update_club_representative/<clubrepresentative_id>/', views.update_club_representative, name='update_club_representative'),
     path('delete_film/<film_id>', views.delete_film, name='delete_film'),
+    path('elevate_user/', views.elevate_user, name='elevate_user')
 ]

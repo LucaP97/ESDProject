@@ -55,3 +55,13 @@ class ContactForm(forms.ModelForm):
         fields = ['landline_number', 'mobile_number', 'email']
 
 
+class ElevateUserForm(forms.ModelForm):
+    user = forms.ModelChoiceField(queryset=User.objects.all())
+    group = forms.ChoiceField(choices=[
+        ('CinemaManager', 'Cinema Manager')
+    ])
+
+    class Meta:
+        model = User
+        fields = ['user', 'group']
+

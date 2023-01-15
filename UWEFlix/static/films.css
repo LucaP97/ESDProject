@@ -36,3 +36,9 @@
   font-size: 16px;
   border-radius: 5px;
   }
+
+.disabled{
+  background-color: gray !important;
+  color: white !important;
+  pointer-events: none;
+}

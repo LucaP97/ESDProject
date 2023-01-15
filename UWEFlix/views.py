@@ -1,54 +1,69 @@
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.db.models import Sum, Count
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from .forms import *
+from datetime import datetime
+from django.utils import timezone
+import random
 
 # Create your views here.
 # request -> response
 # request handler
 # action
 
+# def show_films(request):
+
+#     queryset = Film.objects.all()
+
+#     return render(request, 'UWEFlix/films.html', {'films': list(queryset)})
+def check_permissions(request):
+    if request.user.groups.filter(name='CinemaManager').exists(): #checks if user is in Cinema Managers django group
+        permlevel = 1 # sets 1 if yes
+    else:
+        permlevel = 0
+    return permlevel #returns value to orignal function
+
+
+def index(request):
+    permlevel = check_permissions(request)
+    return render(request, 'UWEFlix/index.html', {'permlevel': permlevel})
+
+def elevate_user(request):
+    permlevel = check_permissions(request)
+
+    #     # Only allow users who are already in the Cinema Managers group to access this page
+    # if not request.user.groups.filter(name='CinemaManager').exists():
+    #     return redirect('index')
+
+    # Get all users who are not already in the Cinema Managers group
+    users = User.objects.exclude(groups__name='Cinema Managers')
+
+    if request.method == 'POST':
+        # Get the user that the logged in user wants to add to the group
+        user_id = request.POST['user']
+        user = User.objects.get(id=user_id)
+
+        # Add the user to the Cinema Managers group
+        group = Group.objects.get(name='CinemaManager')
+        group.user_set.add(user)
+
+        return redirect('index')
+
+    context = {'users': users, 'user': request.user, 'users': User.objects.all(), 'permlevel': permlevel}
+    return render(request, 'UWEFLix/elevate_user.html', context)
+
 def show_films(request):
+    permlevel = check_permissions(request)
 
-    # objects returns a manager object (manager = interface to DB)
-    # methods like all() return a query set
-    
-    # if first is empty, None is returned (means you do not need to use a try catch statement)
-    # film = Film.objects.filter(pk=0).first()
-
-    # exists returns a boolean value
-    exists = Film.objects.filter(pk=0).exists()
-
-    # select_related (1)
-    # prefetch_related (n) (as showing has 1 film, it would be 'select_related')
-    queryset = Film.objects.all()
-
-
-
-    # can filter across relationships, example from storefront:
-    # queryset = Product.objects.filter(collection__id__range(1, 2, 3))
-
-
-    # # list will evaluate the query_set
-    # list(query_set)
-
-    # # can index or slice
-    # query_set[0:5]
-
-    # # can chain these methods to create complex queries
-    # query_set.filter().filter().order_by
-
-    return render(request, 'UWEFlix/films.html', {'films': list(queryset)})
-    # # query_set = Film.objects.all()
-
-    # # for film in query_set:
-    # #     print(film)
+    queryset = Film.objects.all().prefetch_related('showing_set')
+    return render(request, 'UWEFlix/films.html', {'films': list(queryset), "permlevel":permlevel})
 
 
 def add_film(request):
@@ -97,7 +112,7 @@ def add_showing(request):
 
 def register_club(request):
     submitted = False
-    password = ''
+    #password = ''
     if request.method == "POST":
         club_form = ClubForm(request.POST)
         club_representative_form = ClubRepresentativeForm(request.POST)
@@ -109,7 +124,16 @@ def register_club(request):
             club_representative.club = club
             address_form.save()
             contact_form.save()
-            club_representative.user = User.objects.create_user(username=club_representative_form.cleaned_data['first_name'],password=password)
+
+            # random_number =  ClubRepresentative.objects.club_representative_number(int(get_random_string(length=10, allowed_chars='1234567890')))
+
+            # while ClubRepresentative.objects.filter(ClubRepresentative__club_representative_number=random_number):
+            #     random_number =  ClubRepresentative.objects.club_representative_number(int(get_random_string(length=10, allowed_chars='1234567890')))
+
+            ClubRepresentative.objects.club_representative_number = random.randint(2345678909800, 9923456789000)
+
+            club_representative.club_representative_number = get_random_string(length=10, allowed_chars='0123456789')
+            club_representative.user = User.objects.create_user(username=club_representative_form.cleaned_data['first_name'],password=get_random_string(length=8))
             club_representative.user.first_name = club_representative_form.cleaned_data['first_name']
             club_representative.user.last_name = club_representative_form.cleaned_data['last_name']
             club_representative.user.save()
@@ -128,7 +152,6 @@ def register_club(request):
         'address_form': address_form,
         'contact_form': contact_form,
         'submitted': submitted,
-        'password': password
     })
 
 
@@ -190,6 +213,7 @@ def show_clubs_reps(request):
     })
 
 def delete_film(request, film_id):
+
     film = Film.objects.get(pk=film_id)
     film.delete()
     return redirect('films')
